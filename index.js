@@ -90,36 +90,36 @@ exports.Blob = function (props) {
             return "";
         }
         var word = "";
-        arr.forEach(function (coord, index, array) {
-            var p = [];
+        arr.forEach(function (axis, index, array) {
+            var position = [];
             if (index === 0) {
-                word += "M" + coord.x + "," + coord.y + " ";
-                p.push(array[array.length - 3]);
-                p.push(array[index]);
-                p.push(array[index + 1]);
-                p.push(array[index + 2]);
+                word += "M" + axis.x + "," + axis.y + " ";
+                position.push(array[array.length - 3]);
+                position.push(array[index]);
+                position.push(array[index + 1]);
+                position.push(array[index + 2]);
             }
             else if (index === array.length - 2) {
-                p.push(array[index - 1]);
-                p.push(array[index]);
-                p.push(array[index + 1]);
-                p.push(array[0]);
+                position.push(array[index - 1]);
+                position.push(array[index]);
+                position.push(array[index + 1]);
+                position.push(array[0]);
             }
             else if (index === array.length - 1) {
                 return;
             }
             else {
-                p.push(array[index - 1]);
-                p.push(array[index]);
-                p.push(array[index + 1]);
-                p.push(array[index + 2]);
+                position.push(array[index - 1]);
+                position.push(array[index]);
+                position.push(array[index + 1]);
+                position.push(array[index + 2]);
             }
-            var bp = [];
-            bp.push({ x: p[1].x, y: p[1].y });
-            bp.push({ x: ((-p[0].x + 6 * p[1].x + p[2].x) / 6), y: ((-p[0].y + 6 * p[1].y + p[2].y) / 6) });
-            bp.push({ x: ((p[1].x + 6 * p[2].x - p[3].x) / 6), y: ((p[1].y + 6 * p[2].y - p[3].y) / 6) });
-            bp.push({ x: p[2].x, y: p[2].y });
-            word += "C" + bp[1].x + "," + bp[1].y + " " + bp[2].x + "," + bp[2].y + " " + bp[3].x + "," + bp[3].y + " ";
+            var path = [];
+            path.push({ x: position[1].x, y: position[1].y });
+            path.push({ x: ((-position[0].x + 6 * position[1].x + position[2].x) / 6), y: ((-position[0].y + 6 * position[1].y + position[2].y) / 6) });
+            path.push({ x: ((position[1].x + 6 * position[2].x - position[3].x) / 6), y: ((position[1].y + 6 * position[2].y - position[3].y) / 6) });
+            path.push({ x: position[2].x, y: position[2].y });
+            word += "C" + path[1].x + "," + path[1].y + " " + path[2].x + "," + path[2].y + " " + path[3].x + "," + path[3].y + " ";
         });
         return word;
     };
