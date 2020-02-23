@@ -1,6 +1,6 @@
 # Blob maker SGV
 
-## Is an blob maker simulator wich give u an SVG with blob.
+Is an blob maker simulator wich give u an SVG with blob.
 
 
 ### Example
