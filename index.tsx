@@ -66,17 +66,6 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
 
     const createNewFigure = (com: number, cap: number): string => {
 
-        if (com) {
-            setComplexity(com);
-        } else {
-            setComplexity(1)
-        }
-        if (cap) {
-            setContrast(cap);
-        } else {
-            setContrast(140)
-        }
-
         let path = setMetrics(com, cap)
         return path
     }
@@ -143,7 +132,7 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
 
     return (
         <svg width={widht} height={height} viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-            <path d={figure} fill={color} stroke="none" stroke-width="0">
+            <path d={figure} fill={color} stroke="none" strokeWidth="0">
             </path>
         </svg>
     );

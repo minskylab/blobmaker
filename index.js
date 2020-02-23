@@ -49,18 +49,6 @@ exports.Blob = function (props) {
         }
     }, [props.height]);
     var createNewFigure = function (com, cap) {
-        if (com) {
-            setComplexity(com);
-        }
-        else {
-            setComplexity(1);
-        }
-        if (cap) {
-            setContrast(cap);
-        }
-        else {
-            setContrast(140);
-        }
         var path = setMetrics(com, cap);
         return path;
     };
@@ -122,5 +110,5 @@ exports.Blob = function (props) {
         return word;
     };
     return (React.createElement("svg", { width: widht, height: height, viewBox: "0 0 480 480", xmlns: "http://www.w3.org/2000/svg" },
-        React.createElement("path", { d: figure, fill: color, stroke: "none", "stroke-width": "0" })));
+        React.createElement("path", { d: figure, fill: color, stroke: "none", strokeWidth: "0" })));
 };
