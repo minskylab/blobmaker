@@ -17,7 +17,7 @@
 
 
 
-### Authors
+### Authors
 
-- Minsky is an organization of peruvian developers wich work on Open source projects.
+Minsky is an organization of peruvian developers wich work on Open source projects.
 
