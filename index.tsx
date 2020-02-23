@@ -18,16 +18,26 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
     const [widht,setWidth] = useState<string>("100%")
     const [height,setHeight] = useState<string>("100%")
 
+
+
     useEffect(() => {
-        let path:string;
-        if(props.complexity || props.contrast){
-            path = createNewFigure(props.complexity, props.contrast)
-        }else{
-            path = createNewFigure(1, 140)
+        if(props?.complexity && props.complexity > 0){
+            setComplexity(props.complexity)
         }
-        
-        setFigure(path)
-    }, [props.complexity,props.contrast])
+    }, [props.complexity])
+
+
+    useEffect(() => {
+        if(props?.contrast && props.contrast > 0){
+            setContrast(props.contrast)
+        }
+    }, [props.contrast])
+
+    useEffect(() => {
+        setFigure(createNewFigure(complexity, contrast))
+    }, [complexity,contrast])
+
+
 
     useEffect(() => {
         if(props.color){
@@ -54,7 +64,7 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
     }, [props.height])
 
 
-    const createNewFigure = (com: number | undefined, cap: number | undefined): string => {
+    const createNewFigure = (com: number, cap: number): string => {
 
         if (com) {
             setComplexity(com);
@@ -67,7 +77,7 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
             setContrast(140)
         }
 
-        let path = setMetrics(complexity, contrast)
+        let path = setMetrics(com, cap)
         return path
     }
 
@@ -77,8 +87,8 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
         let axis: { x: number, y: number }[] = [];
 
         for (let num = 0; num < 2 * Math.PI; num += 0.6) {
-            let x = (200 * Math.cos(num) + 240) + radomGen(com);
-            let y = (200 * Math.sin(num) + 240) + radomGen(com);
+            let x = (100+cap * Math.cos(num) + 240) + radomGen(com);
+            let y = (100+cap * Math.sin(num) + 240) + radomGen(com);
             axis.push({ x, y });
             if (num + 0.6 >= 2 * Math.PI) {
                 axis.push(axis[0])

@@ -10,15 +10,20 @@ exports.Blob = function (props) {
     var _e = react_1.useState("100%"), widht = _e[0], setWidth = _e[1];
     var _f = react_1.useState("100%"), height = _f[0], setHeight = _f[1];
     react_1.useEffect(function () {
-        var path;
-        if (props.complexity || props.contrast) {
-            path = createNewFigure(props.complexity, props.contrast);
+        var _a;
+        if (((_a = props) === null || _a === void 0 ? void 0 : _a.complexity) && props.complexity > 0) {
+            setComplexity(props.complexity);
         }
-        else {
-            path = createNewFigure(1, 140);
+    }, [props.complexity]);
+    react_1.useEffect(function () {
+        var _a;
+        if (((_a = props) === null || _a === void 0 ? void 0 : _a.contrast) && props.contrast > 0) {
+            setContrast(props.contrast);
         }
-        setFigure(path);
-    }, [props.complexity, props.contrast]);
+    }, [props.contrast]);
+    react_1.useEffect(function () {
+        setFigure(createNewFigure(complexity, contrast));
+    }, [complexity, contrast]);
     react_1.useEffect(function () {
         if (props.color) {
             setColor(props.color.toString());
@@ -56,14 +61,14 @@ exports.Blob = function (props) {
         else {
             setContrast(140);
         }
-        var path = setMetrics(complexity, contrast);
+        var path = setMetrics(com, cap);
         return path;
     };
     var setMetrics = function (com, cap) {
         var axis = [];
         for (var num = 0; num < 2 * Math.PI; num += 0.6) {
-            var x = (200 * Math.cos(num) + 240) + radomGen(com);
-            var y = (200 * Math.sin(num) + 240) + radomGen(com);
+            var x = (100 + cap * Math.cos(num) + 240) + radomGen(com);
+            var y = (100 + cap * Math.sin(num) + 240) + radomGen(com);
             axis.push({ x: x, y: y });
             if (num + 0.6 >= 2 * Math.PI) {
                 axis.push(axis[0]);
