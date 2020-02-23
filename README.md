@@ -3,7 +3,7 @@
 Is an blob maker simulator wich give u an SVG with blob.
 
 
-### Example
+### Example
 
 ```
    <Blob complexity={3} contrast={120} color="pink" height={"200px"} width={"100px"} /> 
