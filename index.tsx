@@ -12,7 +12,7 @@ interface Values {
 export const Blob: React.FunctionComponent<Values> = (props: Values) => {
 
     const [figure, setFigure] = useState("M118.6,-87.4C166.9,-34.1,228.2,16,219.4,48.4C210.7,80.7,131.8,95.3,67.8,117C3.8,138.7,-45.4,167.6,-91.3,157.7C-137.2,147.9,-179.7,99.3,-182.7,51.6C-185.7,3.9,-149.2,-42.9,-112.1,-93.7C-75.1,-144.5,-37.5,-199.3,-1.2,-198.3C35.2,-197.4,70.4,-140.8,118.6,-87.4Z")
-    const [complexity, setComplexity] = useState<number>(0.6);
+    const [complexity, setComplexity] = useState<number>(1);
     const [contrast, setContrast] = useState<number>(140);
     const [color,setColor] = useState<string>("yellow");
     const [widht,setWidth] = useState<string>("100%")
@@ -23,7 +23,7 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
         if(props.complexity || props.contrast){
             path = createNewFigure(props.complexity, props.contrast)
         }else{
-            path = createNewFigure(0.6, 140)
+            path = createNewFigure(1, 140)
         }
         
         setFigure(path)
@@ -59,7 +59,7 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
         if (com) {
             setComplexity(com);
         } else {
-            setComplexity(0.6)
+            setComplexity(1)
         }
         if (cap) {
             setContrast(cap);
@@ -75,18 +75,12 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
     const setMetrics = (com: number, cap: number): string => {
 
         let axis: { x: number, y: number }[] = [];
-        let lastSum: number = 1;
 
-        if (com !== 0 && com >= 1) {
-            lastSum = com * 0.1;
-        } else {
-            lastSum = 0.6;
-        }
-        for (let num = 0; num < 2 * Math.PI; num += lastSum) {
-            let x = (cap * Math.cos(num) + 240) + radomGen();
-            let y = (cap * Math.sin(num) + 240) + radomGen();
+        for (let num = 0; num < 2 * Math.PI; num += 0.6) {
+            let x = (200 * Math.cos(num) + 240) + radomGen(com);
+            let y = (200 * Math.sin(num) + 240) + radomGen(com);
             axis.push({ x, y });
-            if (num + lastSum >= 2 * Math.PI) {
+            if (num + 0.6 >= 2 * Math.PI) {
                 axis.push(axis[0])
             };
         }
@@ -94,9 +88,9 @@ export const Blob: React.FunctionComponent<Values> = (props: Values) => {
         return word
     }
 
-    const radomGen = (): number => {
-        let num = Math.floor(Math.random() * 12) + 8;
-        num *= Math.floor(Math.random() * 4) + 1 === 1 ? 1 : -1;
+    const radomGen = (cap: number): number => {
+        let num = Math.floor(Math.random() * 10) + 1;
+        num *= Math.floor(Math.random() * 4) + 1 === 1 ? cap : -cap;
         return num
     }
 

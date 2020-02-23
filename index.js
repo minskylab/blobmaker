@@ -4,7 +4,7 @@ var React = require("react");
 var react_1 = require("react");
 exports.Blob = function (props) {
     var _a = react_1.useState("M118.6,-87.4C166.9,-34.1,228.2,16,219.4,48.4C210.7,80.7,131.8,95.3,67.8,117C3.8,138.7,-45.4,167.6,-91.3,157.7C-137.2,147.9,-179.7,99.3,-182.7,51.6C-185.7,3.9,-149.2,-42.9,-112.1,-93.7C-75.1,-144.5,-37.5,-199.3,-1.2,-198.3C35.2,-197.4,70.4,-140.8,118.6,-87.4Z"), figure = _a[0], setFigure = _a[1];
-    var _b = react_1.useState(0.6), complexity = _b[0], setComplexity = _b[1];
+    var _b = react_1.useState(1), complexity = _b[0], setComplexity = _b[1];
     var _c = react_1.useState(140), contrast = _c[0], setContrast = _c[1];
     var _d = react_1.useState("yellow"), color = _d[0], setColor = _d[1];
     var _e = react_1.useState("100%"), widht = _e[0], setWidth = _e[1];
@@ -15,7 +15,7 @@ exports.Blob = function (props) {
             path = createNewFigure(props.complexity, props.contrast);
         }
         else {
-            path = createNewFigure(0.6, 140);
+            path = createNewFigure(1, 140);
         }
         setFigure(path);
     }, [props.complexity, props.contrast]);
@@ -48,7 +48,7 @@ exports.Blob = function (props) {
             setComplexity(com);
         }
         else {
-            setComplexity(0.6);
+            setComplexity(1);
         }
         if (cap) {
             setContrast(cap);
@@ -61,18 +61,11 @@ exports.Blob = function (props) {
     };
     var setMetrics = function (com, cap) {
         var axis = [];
-        var lastSum = 1;
-        if (com !== 0 && com >= 1) {
-            lastSum = com * 0.1;
-        }
-        else {
-            lastSum = 0.6;
-        }
-        for (var num = 0; num < 2 * Math.PI; num += lastSum) {
-            var x = (cap * Math.cos(num) + 240) + radomGen();
-            var y = (cap * Math.sin(num) + 240) + radomGen();
+        for (var num = 0; num < 2 * Math.PI; num += 0.6) {
+            var x = (200 * Math.cos(num) + 240) + radomGen(com);
+            var y = (200 * Math.sin(num) + 240) + radomGen(com);
             axis.push({ x: x, y: y });
-            if (num + lastSum >= 2 * Math.PI) {
+            if (num + 0.6 >= 2 * Math.PI) {
                 axis.push(axis[0]);
             }
             ;
@@ -80,9 +73,9 @@ exports.Blob = function (props) {
         var word = getWordByArray(axis);
         return word;
     };
-    var radomGen = function () {
-        var num = Math.floor(Math.random() * 12) + 8;
-        num *= Math.floor(Math.random() * 4) + 1 === 1 ? 1 : -1;
+    var radomGen = function (cap) {
+        var num = Math.floor(Math.random() * 10) + 1;
+        num *= Math.floor(Math.random() * 4) + 1 === 1 ? cap : -cap;
         return num;
     };
     var getWordByArray = function (arr) {
