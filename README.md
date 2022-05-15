@@ -1,4 +1,4 @@
-# Blob maker SGV
+# Blob maker SVG
 
 Is an blob maker simulator wich give u an SVG with blob.
 
